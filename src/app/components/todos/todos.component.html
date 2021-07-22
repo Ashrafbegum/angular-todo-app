@@ -1,8 +1,23 @@
 <div class="todos">
-    <div class="todo" *ngFor="let todo of todos; let i=index;">
-        <div class="id">{{i}}</div>
-        <div class="task">{{todo.task}}</div>
-        <button class="delete">Delete</button>
+
+    <form (submit)="addTodo()">
+        <input 
+            type="text"
+            name="inputTodo"
+            placeholder="Enter todo..."
+            class="todo-input"
+            [(ngModel)]="inputTodo"/> <!--two-wAY data binding-->
+        <button type="submit" value="Add" class="todo-submit">Add</button>
+    </form>
+
+    <!-- If a task is completed is true then set the class to done which will strike through the task, otherwise set the class to nothing-->
+    <!--*ngFor is the for each loop-->
+    <!--click is an onclick event !-->
+
+    <div *ngFor="let todo of todos; let i=index;" class="todo {{ (todo.completed ? 'done' : '') }} ">
+        <div class="id">{{i+1}}</div>
+        <div class="task" (click)="toggleDone(i)">{{todo.task}}</div>
+        <button class="delete" (click)="deleteTodo(i)">Delete</button>
     </div>
 </div>
 
